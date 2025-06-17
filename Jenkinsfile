@@ -2,38 +2,27 @@ pipeline {
     agent any
 
     tools {
-        // Utilise Maven s’il est installé via Jenkins
-        maven '3.9.6'
-        jdk 'jdk-17'
-    }
-
-    environment {
-        DISPLAY = ':0'
+        jdk 'jdk-21'          // Vérifie que ce nom correspond bien à ce que tu as configuré dans Jenkins
+        maven '3.9.6'   // Pareil ici
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/chloeledaga/chlo.git', branch: 'main'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                bat 'mvn clean compile'
             }
         }
 
         stage('Test Selenium') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
     }
 
     post {
         always {
-            junit '**/target/surefire-reports/*.xml'
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
