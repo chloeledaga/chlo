@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk-17'
-        maven '3.9.6'
+        jdk 'jdk-17'       // Nom de JDK défini dans Jenkins (Global Tool Config)
+        maven '3.9.6'      // Nom de Maven défini dans Jenkins
     }
 
     stages {
@@ -22,10 +22,10 @@ pipeline {
 
     post {
         always {
-            node {
-                junit 'target/surefire-reports/*.xml'
-            }
+            // Publication des rapports de tests JUnit
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
+
 
