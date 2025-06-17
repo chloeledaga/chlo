@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     tools {
-    jdk 'jdk-17'
-    maven '3.9.6'
-}
+        jdk 'jdk-17'
+        maven '3.9.6'
+    }
 
     stages {
         stage('Build') {
@@ -22,7 +22,10 @@ pipeline {
 
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            node {
+                junit 'target/surefire-reports/*.xml'
+            }
         }
     }
 }
+
